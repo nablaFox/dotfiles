@@ -1,0 +1,26 @@
+#!/bin/sh
+
+while getopts "ic" opt; do
+  case ${opt} in
+    i )
+      IP=$(curl -s ipinfo.io/ip)
+      ;;
+    c )
+      COPY_TO_CLIPBOARD=true
+      ;;
+    \? )
+      echo "Invalid option: $OPTARG" 1>&2
+      exit 1
+      ;;
+  esac
+done
+
+if [ -z "$IP" ]; then
+  IP=$(ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v '127.0.0.1')
+fi
+
+if [ "$COPY_TO_CLIPBOARD" = true ]; then
+  echo -n "$IP" | xclip -selection clipboard  
+else
+  echo $IP
+fi

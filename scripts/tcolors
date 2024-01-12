@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Array of initial 16 colors in hex format
+init_colors=("000000" "800000" "008000" "808000" "000080" "800080" "008080" "c0c0c0" "808080" "ff0000" "00ff00" "ffff00" "0000ff" "ff00ff" "00ffff" "ffffff")
+
+for i in {0..255}; do
+    if (( i < 16 )); then
+        hex_color="${init_colors[$i]}"
+    else
+        if (( i < 232 )); then
+            value=$(( (i - 16) % 6 ))
+            index=$(( (i - 16) / 6 ))
+            color_component1=$(( (index / 36) * 85 ))
+            color_component2=$(( ((index % 36) / 6) * 85 ))
+            color_component3=$(( (index % 6) * 85 ))
+            hex_color=$(printf "%02x%02x%02x" $color_component1 $color_component2 $color_component3)
+        else
+            shade=$(( (i - 232) * 10 + 8 ))
+            hex_color=$(printf "%02x%02x%02x" $shade $shade $shade)
+        fi
+    fi
+
+    printf "\x1b[48;5;%sm%3d\e[0m \033[38;5;%sm%s\033[0m" "$i" "$i" "$i" "#$hex_color"
+    if (( (i+1) % 16 == 0 )); then echo; fi
+done
