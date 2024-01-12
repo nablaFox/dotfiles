@@ -1,0 +1,34 @@
+# base
+base-devel
+curl
+git
+
+# network
+dhcpcd
+
+# audio
+alsa-utils
+pulseaudio
+pulseaudio-alsa
+pavucontrol
+
+# main
+xorg
+xorg-xinit
+i3-gaps
+i3lock-color
+sddm
+picom
+polybar
+rofi
+slop
+xclip
+dunst
+feh
+mpv
+zathura
+neofetch
+zsh
+oh-my-zsh-git
+ranger
+neovim
