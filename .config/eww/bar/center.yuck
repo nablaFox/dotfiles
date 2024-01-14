@@ -1,0 +1,16 @@
+(deflisten app_icon "bar/scripts/app_icon")
+(defpoll time :interval "1s" "date +'%I:%M %P'")
+
+(defwidget current-app []
+	(box :class "bar-wrapper current-app-icon"
+		(image :path "${app_icon}")))
+
+(defwidget date []
+	(box :class "date bar-wrapper"
+	 time))
+
+(defwidget center []
+	(box :class "center" :space-evenly "false" :spacing 10
+		(current-app)
+		(date)
+	))

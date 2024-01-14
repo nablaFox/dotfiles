@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+contains() {
+	for e in $1; do
+		[[ "$e" == "$2" ]] && echo 1 && return
+	done
+	echo 0
+}
+
+print_workspaces() {
+	local buf=""
+	local workspaces_json=$(i3-msg -t get_workspaces)
+	local desktops=$(i3-msg -t get_workspaces | jq -r '.[].num' | sort -n)
+	local focused_desktop=$(echo "$workspaces_json" | jq -r '.[] | select(.focused==true) | .num')
+	local occupied_desktops=$(echo "$workspaces_json" | jq -r '.[] | select(.num != null) | .num')
+
+	local min_ws=1
+	local max_ws=$(echo "$desktops" | tail -n 1)
+
+	for ((d = min_ws; d <= max_ws || d <= 1; d++)); do
+		if [[ "$(contains "$focused_desktop" "$d")" -eq 1 ]]; then
+			local icon=""
+			local ws=$d
+			local class="workspace-focused"
+		elif [[ "$(contains "$occupied_desktops" "$d")" -eq 1 ]]; then
+			local icon=""
+			local ws=$d
+			local class="workspace-occupied"
+		else
+			local icon=""
+			local ws=$d
+			local class="workspace-empty"
+		fi
+
+		buf+="(workspace :class \"workspace $class\" :icon \"$icon\" :ws \"$ws\")"
+	done
+
+	echo "(box :spacing 10 :valign \"center\" :class \"bar-wrapper workspaces-container\" $buf)"
+}
+
+print_workspaces
+i3-msg -t subscribe -m '[ "workspace" ]' | while read -r _; do
+	print_workspaces &
+done

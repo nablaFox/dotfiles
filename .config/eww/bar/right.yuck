@@ -1,0 +1,32 @@
+(defwidget controlpanel-button []
+	(button :class "bar-wrapper controlpanel-button" 
+		:onclick "bar/scripts/toggle controlpanel" ""))
+
+(defwidget powermenu-button []
+	(eventbox :class "bar-wrapper powermenu-button"
+		:cursor "pointer"
+		:onclick "rofi-powermenu" "⠀⠀"))
+
+(defwidget cpu []
+	(box :class "bar-wrapper cpu" :space-evenly false :spacing 15 :valign "true"
+		(box :class "cpu-icon" "")
+		"${round(EWW_CPU.avg, 1)}%"))
+
+(defwidget ram []
+	(box :class "bar-wrapper ram" :space-evenly false :spacing 15 :valign "true"
+		(box :class "ram-icon" "")	
+		"${round(EWW_RAM.used_mem / 1073741824, 2)} GiB"))
+
+(defwidget temp []
+	(box :class "bar-wrapper temp" :space-evenly false :spacing 5 :valign "true"
+		(box :class "temp-icon" "󰔏")
+		"${EWW_TEMPS["CORETEMP_CORE_0"]}°"))
+
+(defwidget right [] 
+	(box :class "right" :space-evenly false :spacing 10 :halign "end" :valign "center"
+		;; (controlpanel-button)
+		(temp)
+		(cpu)
+		(ram)
+		(powermenu-button)
+	))

@@ -1,0 +1,263 @@
+# Documentation: https://i3wm.org/docs/userguide.html
+
+# set mod
+set $mod Mod4
+set $mod2 Mod1
+
+# set font
+font pango:Open sans 11
+
+# run picom
+exec_always --no-startup-id picom &
+
+# run mpd
+exec_always --no-startup-id mpd &
+exec_always --no-startup-id on-songchange &
+
+# run dunst
+exec_always --no-startup-id dunst &
+
+# set wallpaper with fed
+exec_always feh --no-fehbg --bg-scale --no-startup-id $HOME/Pictures/wallpapers/background.jpg
+
+# launch eww
+exec_always --no-startup-id killall -q
+exec --no-startup-id eww daemon
+exec_always --no-startup-id eww open bar
+
+# start i3 components
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec kitty 
+
+# kill focused window
+bindsym $mod+q kill
+
+# start vscode
+bindsym $mod+v exec kitty -e nvim  
+
+# start ranger
+bindsym $mod+e exec kitty -e zsh -i -c ranger
+
+# start chrome
+bindsym $mod+c exec --no-startup-id google-chrome-stable
+
+# toggle focus
+bindsym $mod+Tab focus left
+
+# change focus
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+h focus left
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod2+v split h
+
+# split in vertical orientation
+bindsym $mod2+h split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod2+Return fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod2+q layout stacking
+bindsym $mod2+w layout tabbed
+bindsym $mod2+e layout toggle split
+
+# save and restore layout with i3-resurrect
+bindsym $mod+t  exec --no-startup-id i3-resurrect restore
+bindsym $mod+y  exec --no-startup-id i3-resurrect save
+
+# toggle tiling / floating
+bindsym $mod+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+Shift+space focus mode_toggle
+
+# run lockscreen
+bindsym $mod+i exec --no-startup-id lock
+
+# monitor settings
+# bindsym $mod+n exec xrandr --auto --output eDP-1 --mode 1920x1080 --rate 75 --right-of HDMI-1 && i3-msg restart &
+# bindsym $mod+m exec xrandr --auto --output HDMI-1 --off && i3-msg restart &
+exec --no-startup-id xrandr --mode 1920x1080 --output HDMI-1 --rate 75
+
+# toggle polybar
+# bindsym $mod+o exec $HOME/.config/polybar/launch.sh
+# bindsym $mod+p exec killall -q polybar
+bindsym $mod+p exec eww close bar
+bindsym $mod+o exec eww open bar
+
+# run rofi programs
+bindsym $mod+a exec --no-startup-id "rofi -show window -no-default-config -config ~/.config/rofi/main.rasi"
+bindsym $mod+d exec --no-startup-id "rofi -show drun -no-default-config -config ~/.config/rofi/main.rasi"
+bindsym $mod+s exec --no-startup-id "rofi -show drun -no-default-config -config ~/.config/rofi/full_screen.rasi"
+bindsym $mod+z exec --no-startup-id "rofi-powermenu"
+bindsym $mod+x exec --no-startup-id "rofi-screenshot"
+bindsym $mod+m exec --no-startup-id "rofi-mpc"
+
+# take a screenshot
+bindsym Pause exec screenshot -sa
+bindsym Print exec screenshot -sf
+
+# audio control
+bindsym Ctrl+Shift+m exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# toggle microphone 
+bindsym ctrl + F3 exec amixer set Capture nocap && dunstify -a "Microphone" "Microphone" "Microphone is muted" -r 100 -i /usr/local/bin/icons/mic-off.svg
+bindsym ctrl + F4 exec amixer set Capture cap && dunstify -a "Microphone" "Microphone" "Microphone is unmuted" -r 100 -i /usr/local/bin/icons/mic.svg
+
+# workspaces names
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Escape exec "i3-nagbar -t warning -m 'You Sure?' -B 'Yeah' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
+
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+# border width
+default_border pixel 0
+
+# border colors
+client.focused #e7e6fc #e7e6fc #F8F8F2 #e7e6fc #e7e6fc
+client.focused_inactive #353535 #353535 #F8F8F2 #21222C #21222C
+client.unfocused #171717 #171717 #353535 #171717 #
+
+# i3 bar
+bar {
+    mode invisible
+	output none
+}
+
+# i3 gaps
+gaps inner 8
+gaps outer 4
+
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+# Keyboard alyout
+exec --no-startup-id setxkbmap -layout it
+
+# Screen Timeout
+exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
+
+# disable caps lock
+exec --no-startup-id xmodmap -e "keycode 66 = Shift_L NoSymbol Shift_L" 

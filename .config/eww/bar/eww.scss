@@ -1,0 +1,100 @@
+$bg: #171717;
+$bg-2: #202020;
+$fg: #dedede;
+$accent: #e7e6fc;
+$accent-2: #e1dfff;
+
+button {
+	all: unset
+}
+
+.bar {
+}
+
+.bar-container {
+	margin: 8px 15px;
+	margin-bottom: 0px;
+	border-radius: 7px;
+	background-color: $bg;
+}
+
+.bar-wrapper {
+	border-radius: 7px;
+	background-color: $bg-2;
+}
+
+.workspaces {
+	margin-left: 15px;
+}
+
+.launcher-icon {
+	font-size: 22px;
+	padding-left: 10px;
+}
+
+.workspaces-container {
+	padding: 4px;
+}
+
+.workspace {
+	font-size: 15px; 
+	padding-right: 5px;
+}
+
+.workspace-focused {
+	color: $accent;
+	background-color: $accent;
+	border-radius: 8px;
+}
+
+.workspace-occupied {
+}
+
+.workspace-empty {
+	opacity: 0.5;
+}
+
+.center {
+	padding: 5px 0px;
+}
+
+.current-app-icon {
+	padding: 0 5px;
+	border-radius: 10px;
+}
+
+.date {
+	padding: 0 15px;
+	font-size: 15px;
+	font-family: "Roboto";
+	font-weight: 700;
+}
+
+.right {
+	margin-right: 15px;
+}
+
+.controlpanel-button {
+	font-size: 20px;
+	padding: 0 6px;
+}
+
+.temp,
+.cpu,
+.ram {
+	padding: 3px 10px;
+	font-family: "Roboto";
+	font-weight: 700;
+}
+
+.ram-icon,
+.cpu-icon,
+.temp-icon {
+	color: $accent-2;
+	font-size: 18px;
+}
+
+.powermenu-button {
+	font-size: 17px;
+	color: #e36b6b;
+}

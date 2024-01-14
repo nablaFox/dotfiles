@@ -1,0 +1,47 @@
+#!/bin/bash
+
+windows=("controlpanel" "powermenu")
+
+is_closed() {
+    eww get $1 | grep -q "false"
+    return $?
+}
+
+open() {
+	eww update $1="true"
+	eww open "$1"
+}
+
+close() {	
+	eww update $1="false"
+	eww close "$1"
+}
+
+close_rest() {
+	for window in "${windows[@]}"; do
+		if [[ "$window" != "$1" ]]; then
+			if ! is_closed "$window"; then
+				close "$window"
+			fi
+		fi
+	done
+}
+
+toggle() {
+    if is_closed "$1"; then
+		open $1
+		close_rest $1
+    else
+		close $1
+    fi
+}
+
+case $1 in
+    "controlpanel")
+        toggle "controlpanel"
+        ;;
+    "powermenu")
+        toggle "powermenu"
+        ;;
+esac
+

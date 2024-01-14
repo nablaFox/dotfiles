@@ -1,0 +1,29 @@
+(include "bar/left.yuck")
+(include "bar/center.yuck")
+(include "bar/right.yuck")
+
+(defwidget bar []
+	(centerbox :orientation "h" :class "bar-container"
+		(left)
+		(center)
+		(right)))
+
+(defwidget multibox [space ?class]
+	(box :class "multibox ${class}"
+		:orientation "h"
+		:space-evenly true
+		:halign "start"
+		:valign "center"
+		:spacing "${space}"
+	(children)))
+
+(defwindow bar
+	:monitor 0
+	:windowtype "dock"
+	:geometry (geometry :x "0%"
+						:y "0%" ;; doesn't work
+						:width "95%" ;; doesn't work
+						:height "45px"
+						:anchor "top center")
+	:reserve (struts :side "top" :distance "20%")
+	(bar))

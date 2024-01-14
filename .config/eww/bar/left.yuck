@@ -1,0 +1,17 @@
+(deflisten workspaces "bar/scripts/workspaces")
+
+(defwidget launcher [icon]
+	(box :class "bar-wrapper launcher-icon"
+	 (eventbox :cursor "pointer" :onclick "rofi -show drun -no-default-config -config ~/.config/rofi/main.rasi &" icon )))
+
+(defwidget workspace [class ws icon]
+	(eventbox :class "workspace" :cursor "pointer" 
+		(button :class "${class}" :onclick "notify-send ${ws}" icon)))
+
+(defwidget workspaces []
+	(literal :content workspaces :valign "center"))
+
+(defwidget left []
+	(box :class "workspaces" :space-evenly false :valign "center" :spacing 10
+		(launcher :icon "󰣇 ")
+		(workspaces)))

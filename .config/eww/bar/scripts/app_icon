@@ -1,0 +1,21 @@
+#!/bin/bash
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+FALLBACK_ICON_PATH="$HOME/.config/eww/bar/assets/icon_fallback.png"
+
+capture_current_window_icon() {
+	active_window_id=$(xdotool getactivewindow 2>/dev/null)
+
+	if [ -z "$active_window_id" ]; then
+		echo "$FALLBACK_ICON_PATH"
+	else
+		"$DIR/capture_icon"
+		echo "/tmp/current_app_icon.png"
+	fi
+}
+
+capture_current_window_icon
+
+xprop -root -spy '_NET_ACTIVE_WINDOW' | while read -r _; do
+	capture_current_window_icon
+done

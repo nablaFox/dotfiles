@@ -1,0 +1,15 @@
+(defvar powermenu false)
+
+(defwidget powermenu []
+	(box :class "powermenu-container"
+		"ok"))
+
+(defwindow powermenu
+	:monitor 0
+	:wm-ignore true
+	:geometry (geometry :x "5%"
+						:y "5%"
+						:width "15%"
+						:height "300px"
+						:anchor "top right")
+	(powermenu))

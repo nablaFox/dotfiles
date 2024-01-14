@@ -1,0 +1,3 @@
+(include "widgets/controlpanel.yuck")
+(include "widgets/powermenu.yuck")
+(include "bar/eww.yuck")
