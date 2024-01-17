@@ -8,8 +8,6 @@
 
 ## Information
 
-<!-- heavely inspired by [Keyitdev](https://github.com/Keyitdev/dotfiles) -->
-
 ## Installation
 
 > [!CAUTION] 
@@ -20,7 +18,13 @@ After a minimal Arch install (with grub and systemd), clone and execute -
 
 ```sh
 pacman -Sy git
-sh -c "$(curl https://raw.githubusercontent.com/nablaFox/dotfiles/main/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/nablaFox/dotfiles/main/install.sh)"
+```
+
+you can also pass a list of custom packages to install, like this:
+
+```sh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/nablaFox/dotfiles/main/install.sh) /path/to/your_list"
 ```
 
 ## Keybindings
@@ -29,22 +33,19 @@ sh -c "$(curl https://raw.githubusercontent.com/nablaFox/dotfiles/main/install.s
 ## Packages
 
 
+## Credits
+
+- https://github.com/Keyitdev/dotfiles
+- https://github.com/rusty-electron/dotfiles
+- https://github.com/gh0stzk/dotfiles
+
 ## TODO
 
-- picom
-- copy background
-- copy fzf scripts
-- install oh-my-zsh locally
-- handle password prompts
-- install python3, nodejs, and python-neovim
-- install zsh plugins
-- change ownership of home dir
-- review scripts dir
-- errors.log
-- automatically start pulseaudio
-- sddm keyboard layout
+- music notifications
 - README
-- see tools in other tools
-- eww bar launcher, default app icon, controlpanel, powermenu, padding
-- gif demos
-- scripts
+- eww bar launcher, controlpanel, powermenu
+- more demos
+- icons
+- dynamic padding
+- eww install
+- music in eww bar

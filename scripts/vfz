@@ -2,7 +2,8 @@
 
 DIR="${1:-.}"
 
-SUDO="$( [ "$(stat -c %U "$DIR")" = "root" ] && echo 'sudo ' || echo '' )"
+SUDO="$([ "$(stat -c %U "$DIR")" = "root" ] && echo 'sudo' || echo '')"
+EDITOR="$([ "$SUDO" = "sudo" ] && echo 'sudoedit' || echo "$EDITOR")"
 
-FILE=$(${SUDO}rg --files --hidden $DIR | ${SUDO}fzf --preview="bat {}" --bind="ctrl-space:toggle-preview" --preview-window=:hidden)
-[[ -z "$FILE" ]] || ${SUDO}nvim "$FILE"
+FILE=$($SUDO rg --files --hidden "$DIR" | $SUDO fzf --preview="bat {}" --bind="ctrl-space:toggle-preview" --preview-window=:hidden)
+[ -z "$FILE" ] || ${EDITOR} "$FILE"

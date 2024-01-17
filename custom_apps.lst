@@ -1,9 +1,11 @@
-nodejs
-python3
-python3-neovim
+python-neovim
 neovim
-kitty
-btop
+cava
+spotdl
+youtube-viewer
+yt-dlp
+ranger
+ncmpcpp
 visual-studio-code-bin
 google-chrome
 firefox-developer-edition

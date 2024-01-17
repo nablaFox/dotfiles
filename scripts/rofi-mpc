@@ -1,0 +1,71 @@
+#!/bin/sh
+
+theme="$HOME/.config/rofi/main_without_icons.rasi"
+
+get_options() {
+	echo "󱖑 Toggle"
+	echo "󰒭 Next"
+	echo "󰒮 Previous"
+	echo "󰝙 Shuffle"
+	echo "󰝚 Repeat"
+	echo "󰽯 Which"
+	echo "󰝛 Mute"
+	echo " Volume"
+	echo " Volume"
+	echo "󰘏 Player"
+	echo " Stop"
+}
+
+main() {
+	choice=$(get_options | rofi -dmenu -theme "$theme" -p "" -selected-row 0)
+
+	case "$choice" in
+	*Toggle)
+		mpc toggle
+		[ "$(mpc status | grep -o 'playing')" = "playing" ] && songinfo
+		;;
+	*Next)
+		mpc next
+		songinfo
+		;;
+	*Previous)
+		mpc prev
+		songinfo
+		;;
+	*Shuffle)
+		mpc random
+		mpc next
+		songinfo
+		;;
+	*Repeat)
+		mpc repeat
+		songinfo
+		;;
+	*Mute)
+		mpc volume 0
+		;;
+	*Which)
+		songinfo
+		;;
+	*Player)
+		kitty -e ncmpcpp
+		;;
+	" Volume")
+		amixer -q sset Master 15%-
+		;;
+	" Volume")
+		amixer -q sset Master 15%+
+		;;
+	*Stop)
+		mpc stop
+		;;
+	*)
+		exit 0
+		;;
+	esac
+
+	set -e
+}
+
+main &
+exit 0
