@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+mpc repeat on
+
+while true; do
+	mpc idle player
+	songinfo
+done

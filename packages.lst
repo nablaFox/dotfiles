@@ -16,31 +16,36 @@ i3lock-color
 sddm
 picom
 polybar
+btop
 rofi
-slop
-xclip
 dunst
 feh
 mpv
 mpd
 mpc
 kitty
-btop
-zathura
-neofetch
+
+# zsh
+zsh
 oh-my-zsh-git
 zsh-autosuggestions
 zsh-syntax-highlighting
-gtk-layer-shell
-eww-x11
-papirus-icon-theme
-gd
-jq
-libpng
-thefuck
+
+# fzf
 fd
 ripgrep
-zsh
 fzf
+
+# icons
+papirus-icon-theme
+
+# base tools
+thefuck
+neofetch
+zathura
+
+# utils
+slop
+xclip
 nodejs
 python3

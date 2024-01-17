@@ -7,17 +7,19 @@ get_options() {
 	echo "󰒭 Next"
 	echo "󰒮 Previous"
 	echo "󰝙 Shuffle"
+	echo "󱢮 Random Album"
 	echo "󰝚 Repeat"
 	echo "󰽯 Which"
 	echo "󰝛 Mute"
-	echo " Volume"
-	echo " Volume"
+	echo " Volume Down"
+	echo " Volume Up"
 	echo "󰘏 Player"
+	echo " Play: Type to search"
 	echo " Stop"
 }
 
 main() {
-	choice=$(get_options | rofi -dmenu -theme "$theme" -p "" -selected-row 0)
+	choice=$(get_options | rofi -dmenu -i -fuzzy -p "" -theme "$theme" -selected-row 0)
 
 	case "$choice" in
 	*Toggle)
@@ -26,23 +28,20 @@ main() {
 		;;
 	*Next)
 		mpc next
-		songinfo
 		;;
 	*Previous)
 		mpc prev
-		songinfo
 		;;
 	*Shuffle)
-		mpc random
+		mpc clear
+		mpc listall | shuf -n 8 | mpc add
 		mpc next
-		songinfo
+		mpc play
 		;;
-	*Repeat)
-		mpc repeat
-		songinfo
-		;;
-	*Mute)
-		mpc volume 0
+	*Album)
+		mpc find album "$(mpc list album | shuf -n 1)" | mpc add
+		mpc next
+		mpc play
 		;;
 	*Which)
 		songinfo
@@ -50,11 +49,24 @@ main() {
 	*Player)
 		kitty -e ncmpcpp
 		;;
-	" Volume")
-		amixer -q sset Master 15%-
+	*Play:*)
+		search_query=$(echo "$choice" | sed 's/Play: //')
+		best_match=$(mpc listall | fzf -f "$search_query" | tail -n 1)
+		echo "$best_match"
+		mpc add "$best_match"
+		mpc play "$(mpc playlist | wc -l)"
 		;;
-	" Volume")
-		amixer -q sset Master 15%+
+	*Down)
+		amixer -q sset Master 13%-
+		;;
+	*Up)
+		amixer -q sset Master 13%+
+		;;
+	*Mute)
+		mpc volume 0
+		;;
+	*Repeat)
+		mpc repeat
 		;;
 	*Stop)
 		mpc stop
@@ -68,4 +80,5 @@ main() {
 }
 
 main &
+
 exit 0

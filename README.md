@@ -41,11 +41,11 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/nablaFox/dotfiles/main/ins
 
 ## TODO
 
-- music notifications
+
 - README
+- padding
+- music notifications
 - eww bar launcher, controlpanel, powermenu
-- more demos
-- icons
-- dynamic padding
+- neovim dynamic padding
 - eww install
 - music in eww bar

@@ -4,5 +4,9 @@ Cover=/tmp/cover.png
 bkpCover=~/.config/ncmpcpp/assets/fallback.webp
 mpddir=~/Music
 
-ffmpeg -i "$mpddir"/"$(mpc current -f %file%)" "${Cover}" -y &>/dev/null || cp $bkpCover $Cover
-dunstify --replace=27072 -i /tmp/cover.png "Playing.." "$(mpc --format '%title% \n%artist%' current)"
+current_track="$(mpc current -f %file%)"
+
+if [ -n "$current_track" ]; then
+	ffmpeg -i "$mpddir/$current_track" "${Cover}" -y &>/dev/null || cp $bkpCover $Cover
+	dunstify --replace=27072 -i /tmp/cover.png "Playing.." "$(mpc --format '%title% \n%artist%' current)"
+fi

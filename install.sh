@@ -115,6 +115,8 @@ install_custom_apps() {
 }
 
 install_fonts() {
+	trap "clean" ERR
+	echo -e "\n${BLUE}Installing fonts${RESET}\n"
 	$aurhelper --needed --noconfirm -S ttf-hack-nerd ttf-cascadia-code-nerd ttf-roboto consolas-font ttf-opensans noto-fonts-emoji noto-fonts ttf-iosevka-nerd nerd-fonts-noto-sans-regular-complete
 	cp -r "$SCRIPT_DIR/dotfiles/.fonts" "$HOME/.fonts"
 	fc-cache -fv
@@ -144,6 +146,11 @@ install_sddm_theme() {
 	sudo cp "$SCRIPT_DIR/sddm/theme.conf" /usr/share/sddm/themes/sddm-flower-theme/theme.conf
 }
 
+install_eww() {
+	echo -e "\n${BLUE}Installing eww${RESET}\n"
+	$aurhelper -S --noconfirm --needed gtk-layer-shell eww-x11 gd jq libpng
+}
+
 create_default_dirs() {
 	mkdir -p "$HOME"/{.config,Pictures/wallpapers}
 	mkdir -p /usr/local/bin
@@ -163,7 +170,7 @@ copy_scripts() {
 
 finishing() {
 	trap "clean" ERR
-	echo -e "${BLUE}Finishing${RESET}\n"
+	echo -e "\n${BLUE}Finishing${RESET}\n"
 	chsh -s /bin/zsh
 	[[ -d /usr/share/oh-my-zsh ]] && sudo mv /usr/share/oh-my-zsh "$HOME"/.oh-my-zsh
 	sudo chsh -s /bin/zsh
@@ -196,7 +203,7 @@ get_aurhelper() {
 }
 
 get_choices() {
-	choices=(1 2 3 4 5 6 7 8 9 10 11 12 13)
+	choices=(1 2 3 4 5 6 7 8 9 10 11 12 13 14)
 
 	if ! ask "\nProceeding with default installation?"; then
 		return 0
@@ -237,18 +244,19 @@ main() {
 		3) spinner "Installing dotfiles" install_dotfiles ;;
 		4) install_pkgs ;;
 		5) install_custom_apps "$@" ;;
-		6) spinner "Installing fonts" install_fonts ;;
+		6) install_fonts ;;
 		7) spinner "Installing gtk_theme" install_gtk_theme ;;
 		8) spinner "Installing grub_theme" install_grub_theme ;;
 		9) spinner "Installing sddm theme" install_sddm_theme ;;
 		10) spinner "Creating default dirs" create_default_dirs ;;
-		11) spinner "Copying configs" copy_configs ;;
-		12) spinner "Copying scripts" copy_scripts ;;
-		13) finishing ;;
+		11) install_eww ;;
+		12) spinner "Copying configs" copy_configs ;;
+		13) spinner "Copying scripts" copy_scripts ;;
+		14) finishing ;;
 		esac
 	done
 
-	echo -e "\n${GREEN}*All Done!${RESET}"
+	echo -e "\n${GREEN}*All Done!${RESET} You may reboot now."
 }
 
 banner
