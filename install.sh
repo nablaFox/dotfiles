@@ -147,6 +147,7 @@ install_sddm_theme() {
 }
 
 install_eww() {
+	trap "clean" ERR
 	echo -e "\n${BLUE}Installing eww${RESET}\n"
 	$aurhelper -S --noconfirm --needed gtk-layer-shell eww-x11 gd jq libpng
 }
