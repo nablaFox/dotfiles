@@ -76,7 +76,6 @@ Reboot and enjoy 🍀
 |<kbd>Super</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>|Restart i3 in-place|
 |<kbd>Super</kbd> + <kbd>Escape</kbd>|Exit i3|
 |<kbd>Super</kbd> + <kbd>R</kbd>|Enter resize mode|
-|<kbd>Super</kbd> + <kbd>G</kbd>|Enter gaps mode|
 
 ## Packages
 
@@ -96,8 +95,8 @@ The [packages.lst](https://github.com/nablaFox/dotfiles/blob/main/packages.lst) 
     <td>Needed by some scripts in <code>scripts</code></td>
   </tr>
   <tr>
-    <td>i3-gaps</td>
-    <td>Window manager (i3) with gaps</td>
+    <td>i3</td>
+    <td>The Window manager</td>
   </tr>
   <tr>
     <td>i3lock-color</td>
@@ -234,7 +233,6 @@ The [packages.lst](https://github.com/nablaFox/dotfiles/blob/main/packages.lst) 
 - neovim alpha dynamic padding
 - ranger
 - other screenshots
-- change i3 with i3-gaps
 
 ## Credits
 
