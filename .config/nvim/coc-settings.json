@@ -34,5 +34,8 @@
 		"sh": "shfmt"
 	},
 	"bashIde.shellcheckPath": "/usr/bin/shellcheck",
-	"clangd.path": "/usr/bin/clangd"
+	"clangd.path": "/usr/bin/clangd",
+	"volar.disableFormatting": true,
+	"eslint.format.enable": true,
+	"eslint.quiet": true
 }

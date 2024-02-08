@@ -33,9 +33,13 @@ return {
 		version = '*',
 		event = 'VeryLazy',
 	},
-	{ 'Raimondi/delimitMate' },
+	{
+		'windwp/nvim-autopairs',
+		event = 'InsertEnter',
+		config = true
+	},
 	{ 'folke/zen-mode.nvim' },
-	{ 'github/copilot.vim',  lazy = false },
+	{ 'github/copilot.vim', lazy = false },
 	{
 		'ggandor/leap.nvim',
 		config = function()

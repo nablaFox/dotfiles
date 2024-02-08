@@ -15,6 +15,9 @@ return {
 		'nvim-treesitter/nvim-treesitter',
 		priority = 999,
 		opts = {
+			autotag = {
+				enable = true,
+			},
 			ensure_installed = {
 				'cpp',
 				'python',
