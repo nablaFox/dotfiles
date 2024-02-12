@@ -29,6 +29,7 @@ alias update="sudo pacman -Syu"
 alias disks="lsblk"
 
 function try() {
+	cd ~/Work
 	[ "$1" ] && nvim "$HOME/Work/$1" || nvim "$HOME/Work/try"
 }
 
@@ -59,12 +60,14 @@ alias gsw="git switch"
 alias gch="git checkout"
 alias gra="git remote add origin git@github.com:"
 alias grs="git remote set-url origin git@github.com:"
-alias gaa="gad && git commit --amend --no-edit"
+alias gan="git commit --amend --no-edit"
+alias gaa="gad && gan"
 alias gpo='git push origin $(git rev-parse --abbrev-ref HEAD)'
 alias gupdatef="gaa && gpo -f"
 
 # dotfiles
 alias dot='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dotpush='dot push origin dotfiles'
 alias nvdot='GIT_DIR=$HOME/.dotfiles/ GIT_WORK_TREE=$HOME nvim'
 
 # media
@@ -161,3 +164,10 @@ eval $(thefuck --alias)
 
 # custom paths
 export PATH=$PATH:~/bin
+
+# bun completions
+[ -s "/home/icecube/.bun/_bun" ] && source "/home/icecube/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

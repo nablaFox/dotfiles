@@ -11,6 +11,7 @@ local keys = {
 	{ '<leader>n',   '<cmd>Telescope notify theme=dropdown<CR>',                                                            desc = 'Notifications history' },
 	{ '<leader>gbc', '<cmd>Telescope git_bcommits<CR>',                                                                     desc = 'Git bcommits' },
 	{ '<leader>gc',  '<cmd>Telescope git_commits<CR>',                                                                      desc = 'Git commits' },
+	{ '<leader>gb',  '<cmd>Telescope git_branches<CR>',                                                                     desc = 'Git commits' },
 	{ '<leader>p',   '<cmd>Telescope neovim-project discover theme=dropdown<CR>',                                           desc = 'Workspaces' },
 	{
 		'<C-p>',

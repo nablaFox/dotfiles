@@ -12,7 +12,7 @@ exec_always --no-startup-id picom &
 
 # run mpd
 exec_always --no-startup-id mpd &
-exec_always --no-startup-id on-songchange &
+# exec_always --no-startup-id on-songchange &
 
 # run dunst
 exec_always --no-startup-id dunst &
@@ -217,7 +217,6 @@ gaps outer 4
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
-bindsym $mod+g mode "$mode_gaps"
 
 mode "$mode_gaps" {
         bindsym o      mode "$mode_gaps_outer"
