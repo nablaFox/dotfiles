@@ -171,3 +171,7 @@ export PATH=$PATH:~/bin
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# android
+export ANDROID_HOME=~/Android/Sdk
+export PATH="/opt/flutter/bin:$PATH"

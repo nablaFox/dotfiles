@@ -20,6 +20,8 @@
 		"rounded": true,
 	},
 	"inlayHint.enable": false,
+	"coc.preferences.formatOnSave": true,
+	"volar.disableFormatting": true,
 	"Lua.diagnostics.globals": [
 		"vim"
 	],
@@ -34,8 +36,5 @@
 	},
 	"bashIde.shellcheckPath": "/usr/bin/shellcheck",
 	"clangd.path": "/usr/bin/clangd",
-	"javascript.format.enable": false,
-	"typescript.format.enable": false,
 	"eslint.format.enable": true,
-	"eslint.autoFixOnSave": true,
 }

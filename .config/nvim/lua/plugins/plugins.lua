@@ -35,8 +35,9 @@ return {
 	},
 	{
 		'windwp/nvim-autopairs',
-		event = 'InsertEnter',
-		config = true
+		opts = {
+			map_cr = false
+		}
 	},
 	{ 'folke/zen-mode.nvim' },
 	{ 'github/copilot.vim', lazy = false },
