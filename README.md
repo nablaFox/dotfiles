@@ -233,6 +233,21 @@ The [packages.lst](https://github.com/nablaFox/dotfiles/blob/main/packages.lst) 
 - neovim alpha dynamic padding
 - ranger
 - other screenshots
+- rofi fonts
+- better handling of touchpad
+- starting mpd
+- ranger previews (install ffmpeg, etc.)
+- zathura-pdf-poppler
+- install python-pillow
+- on-song-change cpu usage
+- install ffcast
+- remove notifications on workspace click
+- adjust grub theme resolution
+- install unzip npm
+- install coc extensions
+- install lemonade
+- NVIDIA drivers
+
 
 ## Credits
 
