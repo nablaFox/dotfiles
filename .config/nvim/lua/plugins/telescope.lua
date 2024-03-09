@@ -13,6 +13,7 @@ local keys = {
 	{ '<leader>gc',  '<cmd>Telescope git_commits<CR>',                                                                      desc = 'Git commits' },
 	{ '<leader>gb',  '<cmd>Telescope git_branches<CR>',                                                                     desc = 'Git commits' },
 	{ '<leader>p',   '<cmd>Telescope neovim-project discover theme=dropdown<CR>',                                           desc = 'Workspaces' },
+	{ '<leader>co',  '<cmd>Telescope coc <CR>',                                                                             desc = 'Workspaces' },
 	{
 		'<C-p>',
 		function()
@@ -54,6 +55,8 @@ local opts = function()
 			default_text = current_query
 		})
 	end
+
+	require('telescope').load_extension('coc')
 
 	return {
 		defaults = {
@@ -99,10 +102,15 @@ command('FindHome', ':lua FindHomeFiles()', {})
 command('FindDots', ':lua FindDotFiles()', {})
 
 return {
-	'nvim-telescope/telescope.nvim',
-	tag = '0.1.4',
-	dependencies = { 'nvim-lua/plenary.nvim' },
-	keys = keys,
-	opts = opts,
-	lazy = false
+	{
+		'fannheyward/telescope-coc.nvim'
+	},
+	{
+		'nvim-telescope/telescope.nvim',
+		tag = '0.1.4',
+		dependencies = { 'nvim-lua/plenary.nvim' },
+		keys = keys,
+		opts = opts,
+		lazy = false
+	}
 }

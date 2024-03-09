@@ -5,19 +5,19 @@
 	"diagnostic.hintSign": "",
 	"suggest.pumFloatConfig": {
 		"border": true,
-		"rounded": true,
+		"rounded": true
 	},
 	"hover.floatConfig": {
 		"border": true,
-		"rounded": true,
+		"rounded": true
 	},
 	"diagnostic.floatConfig": {
 		"border": true,
-		"rounded": true,
+		"rounded": true
 	},
 	"signature.floatConfig": {
 		"border": true,
-		"rounded": true,
+		"rounded": true
 	},
 	"inlayHint.enable": false,
 	"coc.preferences.formatOnSave": true,
@@ -37,4 +37,13 @@
 	"bashIde.shellcheckPath": "/usr/bin/shellcheck",
 	"clangd.path": "/usr/bin/clangd",
 	"eslint.format.enable": true,
+	"typescript.format.enable": false,
+	"java.configuration.runtimes": [
+		{
+			"name": "JavaSE-20",
+			"path": "/usr/lib/jvm/jdk-20.0.2",
+			"default": true
+		}
+	],
+	"prettier.enable": false
 }
