@@ -39,6 +39,7 @@ main() {
 		mpc play
 		;;
 	*Album)
+		mpc clear
 		mpc find album "$(mpc list album | shuf -n 1)" | mpc add
 		mpc next
 		mpc play
