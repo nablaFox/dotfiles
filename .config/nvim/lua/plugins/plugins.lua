@@ -57,7 +57,6 @@ return {
 			autocommands_create = true
 		}
 	},
-	{ 'chrisgrieser/nvim-spider', lazy = true },
 	{
 		'folke/todo-comments.nvim',
 		dependencies = { 'nvim-lua/plenary.nvim' },

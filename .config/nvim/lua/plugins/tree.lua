@@ -39,19 +39,10 @@ return {
 			-- update_root = true
 		},
 	},
-	keys = function()
-		local api = require('nvim-tree.api')
-
-		return {
-			{ '<CR>',   '<cmd>NvimTreeOpen<CR>',  desc = 'open the tree' },
-			{ '<S-CR>', '<cmd>NvimTreeClose<CR>', desc = 'close the tree' },
-			{
-				'<C-CR>',
-				function() api.tree.change_root_to_node() end,
-				'change root to node'
-			}
-		}
-	end,
+	keys = {
+		{ 'm',     '<cmd>NvimTreeOpen<CR>',  desc = 'open the tree' },
+		{ '<S-m>', '<cmd>NvimTreeClose<CR>', desc = 'close the tree' },
+	},
 	init = function()
 		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1

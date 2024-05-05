@@ -52,5 +52,8 @@ nmap('<C-j>', '<C-w>j', 'move down')
 nmap('<C-k>', '<C-w>k', 'move up')
 
 -- workspace
-
 nmap('<C-9>', ':vnew .nvim.lua<CR>', 'open .nvim.lua')
+
+nmap('<C-Tab>', ':tabnext<CR>', 'next tab')
+nmap('<C-S-Tab>', ':tabprevious<CR>', 'previous tab')
+nmap('nn', ':tabnew<CR>', 'new tab')

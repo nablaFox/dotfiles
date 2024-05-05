@@ -106,6 +106,7 @@ nmap('<space>s', ':<C-u>CocList -I symbols<cr>', 'Show symbol list', opts)
 nmap('<space>j', ':<C-u>CocNext<cr>', 'Jump to next item', opts)
 nmap('<space>k', ':<C-u>CocPrev<cr>', 'Jump to previous item', opts)
 
+
 return {
 	{
 		'neoclide/coc.nvim',

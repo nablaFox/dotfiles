@@ -27,6 +27,7 @@
   "tabout.nvim": { "branch": "master", "commit": "0d275c8d25f32457e67b5c66d6ae43f26a61bce5" },
   "telescope-coc.nvim": { "branch": "master", "commit": "96cd72d1e246faf16ef90a6f602330d1d03a446a" },
   "telescope.nvim": { "branch": "master", "commit": "7011eaae0ac1afe036e30c95cf80200b8dc3f21a" },
+  "text-case.nvim": { "branch": "main", "commit": "d62c63a4e9a996c7321885937ab89920fca2c1c8" },
   "todo-comments.nvim": { "branch": "main", "commit": "4a6737a8d70fe1ac55c64dfa47fcb189ca431872" },
   "toggleterm.nvim": { "branch": "main", "commit": "6b334b9d1266b0f58ab1b6965c1e5b7eb5c34523" },
   "ultisnips": { "branch": "master", "commit": "b393ba65386d47664421e1f8b246a87a6e8b218c" },
