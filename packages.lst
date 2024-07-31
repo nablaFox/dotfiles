@@ -19,6 +19,7 @@ linux-firmware
 
 # network
 dhcpcd
+openssh
 
 # audio
 alsa-utils
@@ -48,5 +49,18 @@ zathura
 # utils
 slop
 xclip
+rtorrent
+ranger
+python-pillow
+zathura-pdf-poppler
+ffcast
+unzip
+lemonade
+lazygit
+
+# dev
+clang
+shfmt
 nodejs
 python3
+npm
