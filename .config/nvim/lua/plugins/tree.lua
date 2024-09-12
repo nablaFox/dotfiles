@@ -40,8 +40,7 @@ return {
 		},
 	},
 	keys = {
-		{ 'm',     '<cmd>NvimTreeOpen<CR>',  desc = 'open the tree' },
-		{ '<S-m>', '<cmd>NvimTreeClose<CR>', desc = 'close the tree' },
+		{ '<C-n>', '<cmd>NvimTreeToggle<CR>', desc = 'toggles the tree' },
 	},
 	init = function()
 		vim.g.loaded_netrw = 1

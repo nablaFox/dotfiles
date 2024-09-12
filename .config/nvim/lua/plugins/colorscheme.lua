@@ -1,33 +1,25 @@
 return {
-	'tomasiser/vim-code-dark',
-	priority = 1000,
+	'Mofiqul/vscode.nvim',
 	config = function()
+		require('vscode').setup({
+			transparent = true,
+			disable_nvimtree_bg = true,
+		})
+
 		vim.cmd([[
-			colorscheme codedark
+			colorscheme vscode
 			hi LineNr ctermbg=241 ctermbg=none
 			hi Search ctermbg=193 ctermfg=234 cterm=bold
 			hi Pmenu ctermbg=235 ctermfg=255
 			hi PmenuSel ctermbg=78 ctermfg=232 cterm=bold
 			hi PmenuSbar ctermbg=235
-			hi Visual ctermbg=235 guibg=none
+			" hi Visual ctermbg=235 guibg=
 			hi CursorColumn ctermbg=235 guibg=none
 			hi Normal ctermbg=none ctermfg=15
 			hi EndOfBuffer ctermbg=none
 			hi CursorLine cterm=none ctermbg=none ctermfg=none guibg=none guifg=none
 			hi CursorLineNr ctermbg=none ctermfg=7
 			hi Folded ctermbg=none ctermfg=none cterm=none
-
-			" syntax highlighting
-			hi @punctuation.special ctermfg=75
-			hi @text ctermfg=15
-			hi @text.emphasis ctermfg=15
-			hi @punctuation.bracket.markdown_inline ctermfg=242
-			hi! link @keyword.return Statement
-			hi @tag.delimiter ctermfg=246
-			hi! link @tag.attribute.vue @property
-			hi! link @tag.attribute.html @property
-			hi @text.html cterm=none
-			hi! link @type.qualifier.cpp @keyword.cpp			
 
 			" telescope
 			hi TelescopeMatching ctermfg=blue
