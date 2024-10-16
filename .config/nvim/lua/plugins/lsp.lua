@@ -34,16 +34,20 @@ return {
 			},
 			sources = {
 				{ name = "nvim_lsp" },
-				{ name = "buffer" },
-				{ name = "path" },
 				{ name = "vsnip" },
+				{ name = "path" },
+				{ name = "buffer" },
 			},
 		}
+
+		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+			focusable = false,
+		})
 
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 		local on_attach = function(client, bufnr)
-			if client.name == "volar" then
+			if client.name == "volar" or client.name == "ts_ls" then
 				return
 			end
 
@@ -68,6 +72,7 @@ return {
 
 		require("lspconfig").clangd.setup {
 			cmd = { "clangd", "--offset-encoding=utf-16" },
+			on_attach = on_attach,
 		}
 
 		require("lspconfig").eslint.setup {
@@ -77,6 +82,32 @@ return {
 					command = "EslintFixAll"
 				})
 			end,
+		}
+
+		require 'lspconfig'.volar.setup {
+			filetypes = { 'typescript', 'javascript', 'vue' },
+			init_options = {
+				vue = {
+					hybridMode = false,
+				},
+			},
+		}
+
+		require 'lspconfig'.ts_ls.setup {
+			init_options = {
+				plugins = {
+					{
+						name = "@vue/typescript-plugin",
+						location = "/home/icecube/.bun/install/global/node_modules/@vue/typescript-plugin",
+						languages = { "javascript", "typescript", "vue" },
+					},
+				},
+			},
+			filetypes = {
+				"javascript",
+				"typescript",
+				"vue",
+			},
 		}
 
 		-- Diagnostics style
@@ -130,6 +161,8 @@ return {
 		nmap('[g', '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'go to previous diagnostic')
 		nmap(']g', '<cmd>lua vim.diagnostic.goto_next()<CR>', 'go to next diagnostic')
 
+		nmap('<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', 'rename symbol')
+
 		nmap('gd', '<cmd>lua vim.lsp.buf.definition()<CR>', 'go to definition')
 		nmap('gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', 'go to type definition')
 		nmap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', 'go to implementation')
@@ -150,30 +183,10 @@ return {
 
 		nmap('<leader>cl', '<cmd>lua vim.lsp.codelens.run()<CR>', 'code lens action', opts)
 
-		xmap('if', '<cmd>lua require"telescope.builtin".lsp_document_symbols({ symbols = { "function" } })<CR>',
-			'select inside function', opts)
-		omap('if', '<cmd>lua require"telescope.builtin".lsp_document_symbols({ symbols = { "function" } })<CR>',
-			'select inside function', opts)
-		xmap('af', '<cmd>lua require"telescope.builtin".lsp_document_symbols({ symbols = { "function" } })<CR>',
-			'select around function', opts)
-		omap('af', '<cmd>lua require"telescope.builtin".lsp_document_symbols({ symbols = { "function" } })<CR>',
-			'select around function', opts)
-
-		xmap('ic', '<cmd>lua require"telescope.builtin".lsp_document_symbols({ symbols = { "class" } })<CR>',
-			'select inside class', opts)
-		omap('ic', '<cmd>lua require"telescope.builtin".lsp_document_symbols({ symbols = { "class" } })<CR>',
-			'select inside class', opts)
-		xmap('ac', '<cmd>lua require"telescope.builtin".lsp_document_symbols({ symbols = { "class" } })<CR>',
-			'select around class', opts)
-		omap('ac', '<cmd>lua require"telescope.builtin".lsp_document_symbols({ symbols = { "class" } })<CR>',
-			'select around class', opts)
-
 		nmap('<space>a', '<cmd>Telescope diagnostics<CR>', 'Show diagnostic list', opts)
 		nmap('<space>e', '<cmd>Telescope lsp_extensions<CR>', 'Show extension list', opts)
 		nmap('<space>c', '<cmd>Telescope commands<CR>', 'Show command list', opts)
 		nmap('<space>o', '<cmd>Telescope lsp_document_symbols<CR>', 'Show outline', opts)
 		nmap('<space>s', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', 'Show symbol list', opts)
-		nmap('<space>j', '<cmd>lua vim.diagnostic.goto_next()<CR>', 'Jump to next diagnostic', opts)
-		nmap('<space>k', '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'Jump to previous diagnostic', opts)
 	end,
 }

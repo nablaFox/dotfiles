@@ -1,19 +1,35 @@
 return {
 	{
 		'windwp/nvim-ts-autotag',
-		config = true
+		opts = {}
 	},
 	{
-		'abecodes/tabout.nvim',
-		opts = {
-			tabkey = '<C-à>',
-			backwards_tabkey = '<A-à>',
-			act_as_tab = false,
-		}
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		event = "VeryLazy",
+		enabled = true,
+		config = function()
+			local ts_config = require("nvim-treesitter.configs")
+			ts_config.setup({
+				textobjects = {
+					select = {
+						enable = true,
+						lookahead = true,
+						keymaps = {
+							["af"] = "@function.outer",
+							["if"] = "@function.inner",
+							["ac"] = "@class.outer",
+							["ic"] = "@class.inner",
+						},
+					},
+				},
+			})
+		end,
 	},
 	{
 		'nvim-treesitter/nvim-treesitter',
+		lazy = vim.fn.argc(-1) == 0,
 		priority = 999,
+		opts_extend = { "ensure_installed" },
 		opts = {
 			ensure_installed = {
 				'cpp',
@@ -34,10 +50,8 @@ return {
 			},
 			sync_install = false,
 			auto_install = true,
-			highlight = {
-				enable = true,
-				additional_vim_regex_highlighting = false,
-			},
+			highlight = { enable = true },
+			indent = { enable = true },
 		},
 		main = 'nvim-treesitter.configs'
 	}

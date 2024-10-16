@@ -1,5 +1,6 @@
 ---
 Language: Cpp
+BasedOnStyle: Chromium
 
 UseTab: Always
 IndentWidth: 4
@@ -10,6 +11,7 @@ PointerAlignment: Left
 ColumnLimit: 120
 MaxEmptyLinesToKeep: 1
 SortIncludes: false
+AlwaysBreakTemplateDeclarations: true
 ---
 
 

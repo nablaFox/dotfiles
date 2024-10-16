@@ -18,7 +18,7 @@ local keys = {
 		function()
 			local is_git_repo = vim.fn.system('git rev-parse --is-inside-work-tree')
 			if is_git_repo:match('true') then
-				require('telescope.builtin').git_files()
+				require('telescope.builtin').git_files({ show_untracked = true })
 			else
 				require('telescope.builtin').find_files()
 			end
@@ -55,6 +55,8 @@ local opts = function()
 		})
 	end
 
+	require('telescope').load_extension('fzf')
+
 	return {
 		defaults = {
 			file_ignore_patterns = {
@@ -80,6 +82,15 @@ local opts = function()
 			git_files = { theme = 'dropdown', previewer = false },
 			current_buffer_fuzzy_find = { theme = 'dropdown', previewer = false },
 		},
+
+		extensions = {
+			fzf = {
+				fuzzy = true,
+				override_generic_sorter = false,
+				override_file_sorter = true,
+				case_mode = 'smart_case'
+			}
+		}
 	}
 end
 
@@ -99,6 +110,10 @@ command('FindHome', ':lua FindHomeFiles()', {})
 command('FindDots', ':lua FindDotFiles()', {})
 
 return {
+	{
+		"nvim-telescope/telescope-fzf-native.nvim",
+		build = "make"
+	},
 	{
 		'nvim-telescope/telescope.nvim',
 		tag = '0.1.4',
