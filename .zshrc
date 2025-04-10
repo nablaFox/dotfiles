@@ -28,18 +28,13 @@ alias yeet="yay -Rns"
 alias update="sudo pacman -Syu"
 alias disks="lsblk"
 
-function try() {
-	cd ~/Work
-	[ "$1" ] && nvim "$HOME/Work/$1" || nvim "$HOME/Work/try"
-}
-
-# editing configs
+# # editing configs
 alias cfz="nvdot ~/.zshrc && source ~/.zshrc"
 alias cfn="cd ~/.config/nvim && nvdot" # TODO: should be nvdot ~/.config/nvim
 alias cfi="nvdot ~/.config/i3/config"
 alias cfp="nvdot ~/.config/picom/picom.conf"
 
-# git
+# # git
 alias g="git"
 alias gl="git log --oneline --graph --decorate"
 alias gad="git add --all"
@@ -65,12 +60,12 @@ alias gaa="gad && gan"
 alias gpo='git push origin $(git rev-parse --abbrev-ref HEAD)'
 alias gupdatef="gaa && gpo -f"
 
-# dotfiles
+# # dotfiles
 alias dot='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias dotpush='dot push origin dotfiles'
 alias nvdot='GIT_DIR=$HOME/.dotfiles/ GIT_WORK_TREE=$HOME nvim'
 
-# media
+# # media
 alias ytdl="yt-dlp --compat-options youtube-dl -f 'bestvideo+bestaudio' -o '$HOME/Videos/%(title)s.%(ext)s'"
 alias ytdl-mp3="yt-dlp --compat-options youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 -o '$HOME/Audio/%(title)s.%(ext)s'"
 alias ytp="youtube-viewer --player mpv"
@@ -92,7 +87,6 @@ alias help="cat ~/.zshrc | less"
 alias aliases="grep '^alias' ~/.zshrc | less"
 
 alias logout="killall -KILL -u $USER"
-
 alias icat="kitten icat"
 
 # cd
@@ -100,16 +94,6 @@ alias ..="cd .."
 alias ....="cd ../.."
 alias ......="cd ../../.."
 alias ........="cd ../../../.."
-
-mkcd() {
-    if [ "$#" -lt 1 ]; then
-        echo "no arguments provided!"
-        return
-    elif [ "$#" -gt 1 ]; then
-        echo "too many arguments! ignoring extra.."
-    fi
-    test -d "$1" || mkdir "$1" && cd "$1"
-}
 
 # fzf
 alias cf='change_folder'
@@ -149,24 +133,14 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow . "$1"
 }
 
-# grep
-grept() {
-	if [ $# -eq 1 ]; then
-		grep -rnw . -e $1
-		return
-	else
-		grep -rnw $1 -e $2
-	fi
-}
-
 # the fuck
 eval $(thefuck --alias)
 
 # custom paths
 export PATH=$PATH:~/bin
 
-# bun completions
-[ -s "/home/icecube/.bun/_bun" ] && source "/home/icecube/.bun/_bun"
+# bun
+# [ -s "/home/icecube/.bun/_bun" ] && source "/home/icecube/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -177,3 +151,14 @@ export ANDROID_HOME=~/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH="/opt/flutter/bin:$PATH"
+
+# [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1
+export PATH="/home/icecube/.pixi/bin:$PATH"
+
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Haskell
+export PATH=$PATH:$HOME/.ghcup/bin/

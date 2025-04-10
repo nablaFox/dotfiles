@@ -6,8 +6,8 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		"hrsh7th/nvim-cmp",
 		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/vim-vsnip",
-		"hrsh7th/vim-vsnip-integ"
+		{ "L3MON4D3/LuaSnip", version = "v2.*", build = "make install_jsregexp" },
+		"saadparwaiz1/cmp_luasnip"
 	},
 
 	config = function()
@@ -19,7 +19,7 @@ return {
 		cmp.setup {
 			snippet = {
 				expand = function(args)
-					vim.fn["vsnip#anonymous"](args.body)
+					require("luasnip").lsp_expand(args.body)
 				end,
 			},
 			mapping = {
@@ -34,20 +34,22 @@ return {
 			},
 			sources = {
 				{ name = "nvim_lsp" },
-				{ name = "vsnip" },
+				{ name = "luasnip" },
 				{ name = "path" },
 				{ name = "buffer" },
 			},
 		}
 
-		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-			focusable = false,
-		})
+		-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+		-- 	focusable = false,
+		-- })
 
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+		capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 		local on_attach = function(client, bufnr)
-			if client.name == "volar" or client.name == "ts_ls" then
+			if client.name == "volar" or client.name == "ts_ls" or client.name == 'svelte' then
 				return
 			end
 
@@ -70,12 +72,19 @@ return {
 			end,
 		})
 
-		require("lspconfig").clangd.setup {
-			cmd = { "clangd", "--offset-encoding=utf-16" },
+		local lspconfig = require("lspconfig")
+
+		lspconfig.clangd.setup {
+			cmd = {
+				"clangd",
+				"--offset-encoding=utf-16",
+				"--clang-tidy",
+				"--clang-tidy-checks=*"
+			},
 			on_attach = on_attach,
 		}
 
-		require("lspconfig").eslint.setup {
+		lspconfig.eslint.setup {
 			on_attach = function(client, bufnr)
 				vim.api.nvim_create_autocmd("BufWritePre", {
 					buffer = bufnr,
@@ -84,8 +93,8 @@ return {
 			end,
 		}
 
-		require 'lspconfig'.volar.setup {
-			filetypes = { 'typescript', 'javascript', 'vue' },
+		lspconfig.volar.setup {
+			filetypes = { 'vue' },
 			init_options = {
 				vue = {
 					hybridMode = false,
@@ -93,7 +102,12 @@ return {
 			},
 		}
 
-		require 'lspconfig'.ts_ls.setup {
+		lspconfig.emmet_language_server.setup({
+			capabilities = capabilities,
+			filetypes = { "vue", "html", "svelte" },
+		})
+
+		lspconfig.ts_ls.setup {
 			init_options = {
 				plugins = {
 					{
@@ -108,6 +122,18 @@ return {
 				"typescript",
 				"vue",
 			},
+		}
+
+		lspconfig.hls.setup {
+			capabilities = capabilities,
+			on_attach = on_attach,
+			settings = {
+				haskell = {
+					formattingProvider = "ormolu",
+
+				},
+			},
+
 		}
 
 		-- Diagnostics style
