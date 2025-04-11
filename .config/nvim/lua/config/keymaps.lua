@@ -1,59 +1,52 @@
--- delete/change without yank
-nmap('d', '"_d', 'delete to black hole register')
-nmap('<leader>d', 'd', 'delete')
-nmap('D', '"_D', 'delete to black hole register')
-nmap('<leader>D', 'D', 'delete to end of line')
-vmap('d', '"_d', 'delete to black hole register')
-vmap('<leader>d', 'd', 'delete')
-nmap('c', '"_c', 'change to black hole register')
-nmap('<leader>c', 'c', 'change')
-nmap('C', '"_C', 'change to black hole register')
-nmap('<leader>C', 'C', 'change to end of line')
+local keys = {
+	{ 'delete to black hole register',         'd',         '"_d',                                          'n', },
+	{ 'delete',                                '<leader>d', 'd',                                            'n', },
+	{ 'delete to black hole register',         'D',         '"_D',                                          'n', },
+	{ 'delete to end of line',                 '<leader>D', 'D',                                            'n', },
+	{ 'delete to black hole register',         'd',         '"_d',                                          'v', },
+	{ 'delete',                                '<leader>d', 'd',                                            'v', },
+	{ 'change to black hole register',         'c',         '"_c',                                          'n', },
+	{ 'change',                                '<leader>c', 'c',                                            'n', },
+	{ 'change to black hole register',         'C',         '"_C',                                          'n', },
+	{ 'change to end of line',                 '<leader>C', 'C',                                            'n', },
+	{ 'scroll up half screen',                 '<C-u>',     '<C-u>zz',                                      'n', },
+	{ 'scroll down half screen',               '<C-d>',     '<C-d>zz',                                      'n', },
+	{ 'move line down',                        '<A-j>',     ':m .+1<CR>==',                                 'n', },
+	{ 'move line up',                          '<A-k>',     ':m .-2<CR>==',                                 'n', },
+	{ 'insert mode move line down',            '<A-j>',     '<Esc>:m .+1<CR>==gi',                          'i', },
+	{ 'insert mode move line up',              '<A-k>',     '<Esc>:m .-2<CR>==gi',                          'i', },
+	{ 'visual mode move line down',            '<A-j>',     ':m \'>+1<CR>gv=gv',                            'v', },
+	{ 'visual mode move line up',              '<A-k>',     ':m \'<-2<CR>gv=gv',                            'v', },
+	{ 'copy entire file content to clipboard', '<F2>',      ':%y+<CR>',                                     'n', },
+	{ 'delete entire file content',            '<F3>',      ':%d_<CR>',                                     'n', },
+	{ 'save file',                             '<C-s>',     ':w!<CR>',                                      'n', },
+	{ 'replace',                               '<leader>s', ':%s/',                                         'n', },
+	{ 'split vertically',                      'mv',        ':vsplit<CR>',                                  'n', },
+	{ 'split horizontally',                    'mh',        ':split<CR>',                                   'n', },
+	{ 'new tab',                               'mm',        ':tabnew<CR>',                                  'n', },
+	{ 'exit Neovim',                           'mq',        ':qa!<CR>',                                     'n', },
+	{ 'equalize window sizes',                 '=',         ':wincmd =<CR>',                                'n', },
+	{ 'increase vertical size',                '+',         ':vertical resize +5<CR>',                      'n', },
+	{ 'decrease vertical size',                '-',         ':vertical resize -5<CR>',                      'n', },
+	{ 'increase horizontal size',              '<leader>+', ':resize +5<CR>',                               'n', },
+	{ 'decrease horizontal size',              '<leader>-', ':resize -5<CR>',                               'n', },
+	{ 'equalize horizontal sizes',             '<leader>=', ':resize<CR>',                                  'n', },
+	{ 'close window',                          'qq',        '<C-w>q',                                       'n', },
+	{ 'clear search',                          '<A-l>',     '<Cmd>nohlsearch|diffupdate|normal! <C-L><CR>', 'n', },
+	{ 'move left',                             '<C-h>',     '<C-w>h',                                       'n', },
+	{ 'move right',                            '<C-l>',     '<C-w>l',                                       'n', },
+	{ 'move down',                             '<C-j>',     '<C-w>j',                                       'n', },
+	{ 'move up',                               '<C-k>',     '<C-w>k',                                       'n', },
+	{ 'open .nvim.lua',                        '<C-9>',     ':vnew .nvim.lua<CR>',                          'n', },
+	{ 'next tab',                              '<C-Tab>',   ':tabnext<CR>',                                 'n', },
+	{ 'previous tab',                          '<C-S-Tab>', ':tabprevious<CR>',                             'n', },
+	{ 'go to previous diagnostic',             '[g',        '<cmd>lua vim.diagnostic.goto_prev()<CR>',      'n', },
+	{ 'go to next diagnostic',                 ']g',        '<cmd>lua vim.diagnostic.goto_next()<CR>',      'n', },
+}
 
--- less disorienting scroll
-nmap('<C-u>', '<C-u>zz', 'scroll up half screen')
-nmap('<C-d>', '<C-d>zz', 'scroll down half screen')
-
--- move lines
-nmap('<A-j>', ':m .+1<CR>==', 'move line down')
-nmap('<A-k>', ':m .-2<CR>==', 'move line up')
-imap('<A-j>', '<Esc>:m .+1<CR>==gi', 'insert mode move line down')
-imap('<A-k>', '<Esc>:m .-2<CR>==gi', 'insert mode move line up')
-vmap('<A-j>', ':m \'>+1<CR>gv=gv', 'visual mode move line down')
-vmap('<A-k>', ':m \'<-2<CR>gv=gv', 'visual mode move line up')
-
--- general
-nmap('<F2>', ':%y+<CR>', 'copy entire file content to clipboard')
-nmap('<F3>', ':%d_<CR>', 'delete entire file content')
-nmap('<C-s>', ':w!<CR>', 'save file')
-nmap('<leader>s', ':%s/', 'replace')
-
--- windows
-nmap('nv', ':vsplit<CR>', 'split vertically')
-nmap('nh', ':split<CR>', 'split horizontally')
-nmap('nq', ':lua AskToExit()<CR>', 'Exit Neovim')
-
-nmap('=', ':wincmd =<CR>', 'make all the vertical windows equal size')
-nmap('+', ':vertical resize +5<CR>', 'make the window bigger vertically')
-nmap('-', ':vertical resize -5<CR>', 'make the window smaller vertically')
-
-nmap('<leader>+', ':resize +5<CR>', 'make the window bigger horizontally')
-nmap('<leader>-', ':resize -5<CR>', 'make the window smaller horizontally')
-nmap('<leader>=', ':resize<CR>', 'make all the horizontal windows equal size')
-
-nmap('qq', '<C-w>q', 'close window')
-
--- refresh
-nmap('<A-l>', '<Cmd>nohlsearch|diffupdate|normal! <C-L><CR>', 'Clear search')
-
-nmap('<C-h>', '<C-w>h', 'move left')
-nmap('<C-l>', '<C-w>l', 'move right')
-nmap('<C-j>', '<C-w>j', 'move down')
-nmap('<C-k>', '<C-w>k', 'move up')
-
--- workspace
-nmap('<C-9>', ':vnew .nvim.lua<CR>', 'open .nvim.lua')
-
-nmap('<C-Tab>', ':tabnext<CR>', 'next tab')
-nmap('<C-S-Tab>', ':tabprevious<CR>', 'previous tab')
-nmap('nn', ':tabnew<CR>', 'new tab')
+for _, map in ipairs(keys) do
+	local desc, lhs, rhs, mode, nowait = map[1], map[2], map[3], map[4], map[5]
+	local opts = { noremap = true, silent = true, desc = desc }
+	if nowait then opts.nowait = true end
+	vim.keymap.set(mode, lhs, rhs, opts)
+end

@@ -42,13 +42,11 @@ local function theme()
 	return custom_codedark
 end
 
-local function config()
-	opts.options.theme = theme()
-	require('lualine').setup(opts)
-end
-
 return {
 	'nvim-lualine/lualine.nvim',
 	dependencies = { 'nvim-tree/nvim-web-devicons' },
-	config = config,
+	config = function()
+		opts.options.theme = theme()
+		require('lualine').setup(opts)
+	end,
 }

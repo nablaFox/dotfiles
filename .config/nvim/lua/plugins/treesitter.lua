@@ -1,10 +1,6 @@
 return {
 	{
-		'windwp/nvim-ts-autotag',
-		opts = {}
-	},
-	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
+		'nvim-treesitter/nvim-treesitter-textobjects',
 		event = "VeryLazy",
 		enabled = true,
 		config = function()
@@ -29,25 +25,7 @@ return {
 		'nvim-treesitter/nvim-treesitter',
 		lazy = vim.fn.argc(-1) == 0,
 		priority = 999,
-		opts_extend = { "ensure_installed" },
 		opts = {
-			ensure_installed = {
-				'cpp',
-				'python',
-				'vim',
-				'sql',
-				'lua',
-				'json',
-				'c',
-				'javascript',
-				'typescript',
-				'css',
-				'bash',
-				'json',
-				'markdown',
-				'markdown_inline',
-				'vue'
-			},
 			sync_install = false,
 			auto_install = true,
 			highlight = { enable = true },
@@ -56,4 +34,3 @@ return {
 		main = 'nvim-treesitter.configs'
 	}
 }
-

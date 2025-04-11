@@ -1,3 +1,8 @@
+local keys = {
+	{ 'zR', ':lua require("ufo").openAllFolds()<CR>',  desc = 'open all folds' },
+	{ 'zM', ':lua require("ufo").closeAllFolds()<CR>', desc = 'close all folds' }
+}
+
 return {
 	{
 		'luukvbaal/statuscol.nvim',
@@ -16,10 +21,7 @@ return {
 	},
 	{
 		'kevinhwang91/nvim-ufo',
-		keys = {
-			{ 'zR', ':lua require("ufo").openAllFolds()<CR>',  desc = 'open all folds' },
-			{ 'zM', ':lua require("ufo").closeAllFolds()<CR>', desc = 'close all folds' }
-		},
+		keys = keys,
 		config = function()
 			vim.o.foldcolumn = '1'
 			vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]

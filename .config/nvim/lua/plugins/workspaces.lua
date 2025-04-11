@@ -1,6 +1,12 @@
+local keys = {
+	{ '<leader>p', '<cmd>Telescope neovim-project discover theme=dropdown previewer=false<CR>', desc = 'workspaces' },
+	{ '<space>q',  '<cmd>NeovimProjectLoadRecent<CR>',                                          desc = 'resume project' }
+}
+
 local function init()
-	create_group('Workspaces')
-	aucmd({ 'User' }, {
+	vim.api.nvim_create_augroup('Workspaces', { clear = true })
+
+	vim.api.nvim_create_autocmd({ 'User' }, {
 		pattern = 'SessionLoadPost',
 		group = 'Workspaces',
 		callback = function()
@@ -18,18 +24,17 @@ return {
 		projects = {
 			'~/Projects/*',
 			'~/.config/nvim',
-			'~/.config/eww',
 			'~/Work/*',
-			'~/Work/Notes/Programmazione-1'
 		},
 		last_session_on_startup = false
 	},
 	init = init,
 	dependencies = {
 		{ 'nvim-lua/plenary.nvim' },
-		{ 'nvim-telescope/telescope.nvim', tag = '0.1.4' },
+		{ 'nvim-telescope/telescope.nvim' },
 		{ 'Shatur/neovim-session-manager' },
 	},
 	priority = 100,
+	keys = keys,
 	lazy = false
 }

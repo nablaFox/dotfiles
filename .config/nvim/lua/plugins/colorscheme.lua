@@ -13,7 +13,6 @@ return {
 			hi Pmenu ctermbg=235 ctermfg=255
 			hi PmenuSel ctermbg=78 ctermfg=232 cterm=bold
 			hi PmenuSbar ctermbg=235
-			" hi Visual ctermbg=235 guibg=
 			hi CursorColumn ctermbg=235 guibg=none
 			hi Normal ctermbg=none ctermfg=15
 			hi EndOfBuffer ctermbg=none
@@ -24,28 +23,11 @@ return {
 			" telescope
 			hi TelescopeMatching ctermfg=blue
 
-			" alpha
-			hi AlphaShortcut ctermfg=121 cterm=bold
-			hi AlphaButtonText ctermfg=151
-			hi AlphaButtonText ctermfg=151
-			hi AlphaButtonText ctermfg=151
-			hi EndOfBuffer ctermfg=234
-
 			" gitsigns
 			hi! link SignColumn LineNr
 			hi GitSignsDelete ctermfg=red
 			hi GitSignsChange ctermfg=5
 			hi GitSignsAdd ctermfg=green
-
-			" coc
-			hi CocWarningHighlight cterm=undercurl guisp=#F89880
-			hi CocErrorHighlight cterm=undercurl guisp=#e34444
-			hi CocUnusedHighlight cterm=undercurl gui=undercurl guisp=#80abe0
-			hi CocMenuSel cterm=bold ctermbg=none
-			hi CocFloatSbar ctermbg=233 ctermfg=233
-			hi CocFloating ctermbg=233
-			hi CocFloatThumb ctermbg=233
-			hi CocHighlightText ctermbg=235
 
 			" notify
 			hi NotifyWARNBorder ctermfg=blue
@@ -75,6 +57,11 @@ return {
 			" indent
 			hi IblIndent ctermfg=235
 			hi IblScope ctermfg=236
+
+			" lsp
+			hi DiagnosticUnderlineWarn cterm=undercurl guisp=#F89880
+			hi DiagnosticUnderlineError cterm=undercurl guisp=#e34444
+			hi DiagnosticUnderlineHint cterm=undercurl guisp=#80abe0
 		]])
 	end
 }
