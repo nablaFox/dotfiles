@@ -1,6 +1,5 @@
 #!/bin/sh
 
-# rofi theme
 theme="$HOME/.config/rofi/main_without_icons.rasi"
 
 get_options() {
@@ -13,11 +12,8 @@ get_options() {
 }
 
 main() {
-
-  # get choice from rofi
   choice=$( (get_options) | rofi -dmenu -i -fuzzy -p "" -theme "$theme")
 
-  # run the selected command
   case $choice in
   ' Poweroff')
     systemctl poweroff
@@ -39,7 +35,6 @@ main() {
     ;;
   esac
 
-  # done
   set -e
 }
 

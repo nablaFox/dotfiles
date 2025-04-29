@@ -1,66 +1,79 @@
-# main
+# window system
 xorg
 xorg-xinit
 xdotool
+
+# window manager
 i3
-; i3lock-color
+
+# display manager
 sddm
+qt5-graphicaleffects
+qt5-quickcontrols2
+qt5-svg
+
+# compositor
 picom
-btop
-rofi
-dunst
-feh
-mpv
-mpd
-mpc
-kitty
-linux-headers
-linux-firmware
 
-# network
-dhcpcd
-openssh
-
-# audio
-alsa-utils
-pulseaudio
-pulseaudio-alsa
-pavucontrol
-
-# zsh
+# shell
 zsh
-oh-my-zsh-git
+oh-my-zsh
 zsh-autosuggestions
 zsh-syntax-highlighting
 
-# fzf
-fd
-ripgrep
-fzf
+# terminal emulator
+kitty
 
-# icons
-papirus-icon-theme
+# top bar
+eww
 
-# base tools
-thefuck
-neofetch
+# app launcher
+rofi
+
+# notification manager
+dunst
+
+# background manager
+feh
+
+# file manager
+ranger
+python-pillow
+ffmpegthumbnailer
+
+# media player
+mpv
+
+# python
+python
+
+# nvim
+nvim
+python-neovim
+lazygit
+npm
+
+# pdf viewer
 zathura
+zathura-pdf-poppler
 
 # utils
 slop
 xclip
-rtorrent
-ranger
-python-pillow
-zathura-pdf-poppler
 ffcast
+neofetch
+ripgrep
+fzf
+neofetch
+yt-dlp
+youtube-viewer
 unzip
-lemonade
-lazygit
 
-# dev
-clang
-shfmt
-nodejs
-python3
-npm
+# browser
+chromium
+
+# icons theme
+papirus-icon-theme
+
+# fonts
+ttf-cascadia-code-nerd

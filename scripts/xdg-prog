@@ -1,5 +1,0 @@
-#!/bin/sh
-
-MIME=$(xdg-mime query filetype "$1")
-TOOL=$(xdg-mime query default $MIME)
-echo -e "Opener: $TOOL\nmime: $MIME"
