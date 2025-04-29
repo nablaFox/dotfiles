@@ -2,9 +2,7 @@
 Language: Cpp
 BasedOnStyle: Chromium
 
-UseTab: Always
 IndentWidth: 4
-TabWidth: 4
 AccessModifierOffset: -4
 DerivePointerAlignment: false
 PointerAlignment: Left
@@ -14,4 +12,9 @@ SortIncludes: false
 AlwaysBreakTemplateDeclarations: true
 ---
 
+---
+Language: C
+BasedOnStyle: Google
 
+IndentWidth: 4
+---

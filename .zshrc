@@ -1,40 +1,22 @@
-# oh-my-zsh
-export ZSH="$HOME/.oh-my-zsh"
-export ZSH_CUSTOM="$HOME/.config/oh-my-zsh"
+# zsh customization
+ZSH_CUSTOM="$HOME/.config/oh-my-zsh/"
 
-ZSH_THEME="theme"
-
-ZSH_CACHE_DIR="$HOME/.cache/oh-my-zsh"
-if [[ ! -d "$ZSH_CACHE_DIR" ]]; then
-  mkdir "$ZSH_CACHE_DIR"
-fi
-
-source $ZSH/oh-my-zsh.sh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+ZSH_THEME=keyitdev
 
 plugins=(git)
 
-# defaults
+source /usr/share/oh-my-zsh/oh-my-zsh.sh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh 
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# env variables
+export SHELL=$(which zsh)
 export EDITOR=nvim
-export TERMINAL=kitty
-export BROWSER=chrome
 export VISUAL=nvim
+export TERMINAL=kitty
+export BROWSER=chromium
 
-# life improvements
-bindkey -v
-alias yet="yay -Rn"
-alias yeet="yay -Rns"
-alias update="sudo pacman -Syu"
-alias disks="lsblk"
-
-# # editing configs
-alias cfz="nvdot ~/.zshrc && source ~/.zshrc"
-alias cfn="cd ~/.config/nvim && nvdot" # TODO: should be nvdot ~/.config/nvim
-alias cfi="nvdot ~/.config/i3/config"
-alias cfp="nvdot ~/.config/picom/picom.conf"
-
-# # git
+# git
 alias g="git"
 alias gl="git log --oneline --graph --decorate"
 alias gad="git add --all"
@@ -60,12 +42,14 @@ alias gaa="gad && gan"
 alias gpo='git push origin $(git rev-parse --abbrev-ref HEAD)'
 alias gupdatef="gaa && gpo -f"
 
-# # dotfiles
-alias dot='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias dotpush='dot push origin dotfiles'
-alias nvdot='GIT_DIR=$HOME/.dotfiles/ GIT_WORK_TREE=$HOME nvim'
+# ricing
+alias dots='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias rice='GIT_DIR=$HOME/.dotfiles/ GIT_WORK_TREE=$HOME nvim'
+alias cfz="rice ~/.zshrc && source ~/.zshrc"
+alias cfn="rice ~/.config/nvim"
+alias cfi="rice ~/.config/i3"
 
-# # media
+# media
 alias ytdl="yt-dlp --compat-options youtube-dl -f 'bestvideo+bestaudio' -o '$HOME/Videos/%(title)s.%(ext)s'"
 alias ytdl-mp3="yt-dlp --compat-options youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 -o '$HOME/Audio/%(title)s.%(ext)s'"
 alias ytp="youtube-viewer --player mpv"
@@ -75,90 +59,54 @@ alias spt="spotdl --output $HOME/Music"
 alias xclipc="xclip -i -selection clip"
 alias xclipp="xclip -i selection clipbord -o >"
 
-# other
-alias nv="nvim"
-alias nvhelp="nv ~/Work/nvhelp"
-alias l="ls -l"
-alias la="ls -alF"
-alias h="history|grep"
-alias c="clear"
-
-alias help="cat ~/.zshrc | less"
-alias aliases="grep '^alias' ~/.zshrc | less"
-
-alias logout="killall -KILL -u $USER"
-alias icat="kitten icat"
-
-# cd
-alias ..="cd .."
-alias ....="cd ../.."
-alias ......="cd ../../.."
-alias ........="cd ../../../.."
-
 # fzf
-alias cf='change_folder'
-alias of='open_with_fzf'
-alias f='vfz'
+alias cf='cd_fzf'
+alias of='open_fzf'
+alias f='edit_fzf'
+
+cd_fzf() {
+  local DIR="${1:-$HOME}"
+  local TARGET=$(find "$DIR" -type d -printf '%P\n' | fzf) || return 1
+  cd "$DIR/${TARGET}" 
+}
+
+open_fzf() {
+    local FILE=$(rg --files | fzf --preview="xdg-prog {}" --bind="ctrl-space:toggle-preview" --preview-window=up,15%)
+    [[ -z "$FILE" ]] || (xdg-open "$FILE" &> /dev/null)
+}
+
+edit_fzf() {
+    local DIR="${1:-.}"
+
+    local SUDO="$([ "$(stat -c %U "$DIR")" = "root" ] && echo 'sudo' || echo '')"
+    local EDITOR="$([ "$SUDO" = "sudo" ] && echo 'sudoedit' || echo "${EDITOR:-vi}")"
+
+    local FILE=$($SUDO rg --files --hidden "$DIR" | $SUDO fzf --preview="bat {}" --bind="ctrl-space:toggle-preview" --preview-window=:hidden)
+
+    [ -z "$FILE" ] || ${EDITOR} "$FILE"
+}
 
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 
-change_folder() {
-	echo $1 
-    [[ -z $1 ]] && DIR=~ || DIR=$1
+# tweaks
+alias nv="nvim"
+alias l="ls -l"
+alias la="ls -alF"
+alias c="clear"
 
-    CHOSEN=$(fd . $DIR -H -t d | sed "s|^$DIR||" | fzf --preview="exa -s type --icons {}" --bind="ctrl-space:toggle-preview" --preview-window=,30:hidden)
-    
-    if [[ -z $CHOSEN ]]; then
-        echo $CHOSEN
-        return 1
-    else
-        cd "$DIR/$CHOSEN"
-    fi
+alias help="cat ~/.zshrc | less"
 
-    [[ $(ls | wc -l) -le 60 ]] && (pwd; ls)
-    return 0
-}
+alias logout="killall -KILL -u $USER"
+alias icat="kitten icat"
 
-open_with_fzf() {
-    FILE=$(rg --files | fzf --preview="xdg-prog {}" --bind="ctrl-space:toggle-preview" --preview-window=up,15%)
-    [[ -z "$FILE" ]] || (xdg-open "$FILE" &> /dev/null)
-}
+bindkey -v
+alias yet="yay -Rn"
+alias yeet="yay -Rns"
+alias update="sudo pacman -Syu"
+alias disks="lsblk"
 
-_fzf_compgen_path() {
-  fd --hidden --follow . "$1"
-}
-
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow . "$1"
-}
-
-# the fuck
-eval $(thefuck --alias)
-
-# custom paths
-export PATH=$PATH:~/bin
-
-# bun
-# [ -s "/home/icecube/.bun/_bun" ] && source "/home/icecube/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# android
-export ANDROID_HOME=~/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-export PATH="/opt/flutter/bin:$PATH"
-
-# [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
-export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1
-export PATH="/home/icecube/.pixi/bin:$PATH"
-
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Haskell
-export PATH=$PATH:$HOME/.ghcup/bin/
+alias ..="cd .."
+alias ....="cd ../.."
+alias ......="cd ../../.."
+alias ........="cd ../../../.."
